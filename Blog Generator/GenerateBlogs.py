@@ -4,7 +4,7 @@ import re
 import os
 import sys
 
-pdoc_args = ["-s"]
+pdoc_args = ["-s", "--wrap=preserve"]
 outputDir="output/"
 def openHeader(fileName):
     with open(fileName, 'r') as content_file:
@@ -24,6 +24,7 @@ def generateBlog(fileName, pathForFiles):
     print("File to Open 2 " + fileName)
     with open(newFile, 'r') as content_file:
         toAdd = content_file.read()
+    toAdd = toAdd.replace("<br />", "<br /><br />")
     toAdd = re.sub("<head>(.|\n)*?</head>", "", toAdd, flags=re.DOTALL)
     toAdd = re.sub("<footer>(.|\n)*?</footer>", "", toAdd, flags=re.DOTALL)
     blogFile = blogFile + toAdd 
